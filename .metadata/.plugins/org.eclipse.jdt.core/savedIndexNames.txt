@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\proiecte\Proiect-ISP\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+1906371867.index
+3649556410.index

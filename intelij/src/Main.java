@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        RoomManager roomManager = new RoomManager(new ArrayList<>());
-        roomManager.createRoom("Room 1", Topic.BUSINESS);
-        roomManager.createRoom("Room 2", Topic.SCIENCE);
-        // print all rooms
-        System.out.println("Rooms:");
-        for (Room room : roomManager.getRooms()) {
-            System.out.println(room);
-        }
+//        RoomManager roomManager = new RoomManager(new ArrayList<>());
+//        roomManager.createRoom("Room 1", Topic.BUSINESS);
+//        roomManager.createRoom("Room 2", Topic.SCIENCE);
+//        // print all rooms
+//        System.out.println("Rooms:");
+//        for (Room room : roomManager.getRooms()) {
+//            System.out.println(room);
+//        }
 
 //        Scanner scanner = new Scanner(System.in);
 //        List<User> users = new ArrayList<>();

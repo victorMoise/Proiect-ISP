@@ -1,5 +1,5 @@
-public class StudyResource {
+public class StudyMaterial {
     private String title;
     private String link;
-    ResourceType type;
+    MaterialType type;
 }

@@ -1,83 +1,66 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-//        RoomManager roomManager = new RoomManager(new ArrayList<>());
-//        roomManager.createRoom("Room 1", Topic.BUSINESS);
-//        roomManager.createRoom("Room 2", Topic.SCIENCE);
-//        // print all rooms
-//        System.out.println("Rooms:");
-//        for (Room room : roomManager.getRooms()) {
-//            System.out.println(room);
-//        }
+        Scanner scanner = new Scanner(System.in);
+        List<User> users = new ArrayList<>();
 
-//        Scanner scanner = new Scanner(System.in);
-//        List<User> users = new ArrayList<>();
-//        List<Room> rooms = new ArrayList<>();
-//
-//        Admin admin = new Admin();
-//        users.add(admin);
-//
-//        boolean loggedIn = false;
-//        User currentUser = null;
-//
-//        //
-//        while (!loggedIn) {
-//            System.out.println("\nWelcome to the Study Session App!");
-//            System.out.println("1. Login");
-//            System.out.println("2. Register");
-//            System.out.print("Please select an option: ");
-//
-//            int choice = -1;
-//            try {
-//                choice = Integer.parseInt(scanner.nextLine());
-//            } catch (NumberFormatException e) {
-//                System.out.println("Invalid input. Please enter a number.");
-//                continue;
-//            }
-//
-//            switch (choice) {
-//                case 1 -> {
-//                    System.out.print("Enter username: ");
-//                    String username = scanner.nextLine();
-//                    System.out.print("Enter password: ");
-//                    String password = scanner.nextLine();
-//
-//                    for (User user : users) {
-//                        if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-//                            loggedIn = true;
-//                            currentUser = user;
-//                            System.out.println("Login successful! Welcome, " + user.getUsername());
-//                            break;
-//                        }
-//                    }
-//
-//                    if (!loggedIn) {
-//                        System.out.println("Invalid username or password. Please try again.");
-//                    }
-//                }
-//
-//                case 2 -> {
-//                    System.out.print("Enter username: ");
-//                    String newUsername = scanner.nextLine();
-//                    System.out.print("Enter email: ");
-//                    String email = scanner.nextLine();
-//                    System.out.print("Enter password: ");
-//                    String newPassword = scanner.nextLine();
-//
-//                    User newUser = new Student(newUsername, email, newPassword, Role.STUDENT, 1, 1, "Series", "Major", "University");
-//                    users.add(newUser);
-//                    System.out.println("Registration successful! You can now log in.");
-//                }
-//
-//                default -> System.out.println("Invalid option. Please try again.");
-//            }
-//        }
+        Admin admin = new Admin(1, "admin", "admin@admin.com", "adminPassword");
+        users.add(admin);
 
-        // Example after login
-//        System.out.println("User info:");
-//        System.out.println(currentUser);
+        boolean loggedIn = false;
+        User currentUser = null;
+
+        while (!loggedIn) {
+            System.out.println("\n=== Study Group App ===");
+            System.out.println("1. Login");
+            System.out.println("2. Register (Student)");
+            System.out.print("Select an option: ");
+            String choice = scanner.nextLine().trim();
+
+            switch (choice) {
+                case "1" -> {
+                    System.out.print("Email: ");
+                    String emailInput = scanner.nextLine().trim();
+                    System.out.print("Password: ");
+                    String passwordInput = scanner.nextLine().trim();
+
+                    for (User u : users) {
+                        if (u.getEmail().equalsIgnoreCase(emailInput) && u.getPassword().equals(passwordInput)) {
+                            currentUser = u;
+                            loggedIn = true;
+                            System.out.println("Login successful! Welcome, " + u.getUsername());
+                            break;
+                        }
+                    }
+
+                    if (!loggedIn) {
+                        System.out.println("Invalid email or password. Try again.");
+                    }
+                }
+
+                case "2" -> {
+                    int newId = users.size() + 1;
+                    System.out.print("Name: ");
+                    String name = scanner.nextLine().trim();
+                    System.out.print("Email: ");
+                    String email = scanner.nextLine().trim();
+                    System.out.print("Password: ");
+                    String password = scanner.nextLine().trim();
+
+                    Student student = new Student(newId, name, email, password);
+                    users.add(student);
+                    System.out.println("Registration successful! You can now log in.");
+                }
+
+                default -> System.out.println("Invalid option. Please select 1 or 2.");
+            }
+        }
+
+        System.out.println("\n--- Logged in User ---");
+        System.out.println("ID:    " + currentUser.getId());
+        System.out.println("Name:  " + currentUser.getUsername());
+        System.out.println("Email: " + currentUser.getEmail());
+        System.out.println("Role:  " + (currentUser instanceof Admin ? "Admin" : "Student"));
     }
 }

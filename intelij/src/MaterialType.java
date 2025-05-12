@@ -1,4 +1,6 @@
 public enum MaterialType {
-    WEBSITE,
-    FILE
+    DOCUMENT,
+    VIDEO,
+    LINK,
+    PRESENTATION
 }

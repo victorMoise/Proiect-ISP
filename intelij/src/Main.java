@@ -92,6 +92,7 @@ public class Main {
             System.out.println("\n=== Study Group App ===");
             System.out.println("1. Login");
             System.out.println("2. Register (Student)");
+            System.out.println("3. Exit");
             System.out.print("Select an option: ");
             String choice = scanner.nextLine().trim();
 
@@ -115,7 +116,6 @@ public class Main {
                         System.out.println("Invalid email or password. Try again.");
                     }
                 }
-
                 case "2" -> {
                     int newId = users.size() + 1;
                     System.out.print("Name: ");
@@ -128,6 +128,11 @@ public class Main {
                     Student student = new Student(newId, name, email, password);
                     users.add(student);
                     System.out.println("Registration successful! You can now log in.");
+                }
+                case "3" -> {
+                    System.out.println("Exiting...");
+                    exit = true;
+                    return null;
                 }
 
                 default -> System.out.println("Invalid option. Please select 1 or 2.");

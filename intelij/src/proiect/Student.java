@@ -1,8 +1,10 @@
+package proiect;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends User {
-    private List<StudyGroup> groups = new ArrayList<>();
+    private final List<StudyGroup> groups = new ArrayList<>();
 
     public Student(int id, String username, String email, String password) {
         super(id, username, email, password);
@@ -14,9 +16,5 @@ public class Student extends User {
 
     public List<StudyGroup> getGroups() {
         return groups;
-    }
-
-    public void uploadMaterial(StudyMaterial material) {
-
     }
 }

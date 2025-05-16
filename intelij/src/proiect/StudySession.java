@@ -1,3 +1,5 @@
+package proiect;
+
 import java.util.Date;
 
 public class StudySession {
@@ -11,5 +13,13 @@ public class StudySession {
         this.date = date;
         this.location = location;
         this.group = group;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public String getDetails() {
+        return "Topic: " + topic + ", Date: " + date.toString() + ", Location: " + location;
     }
 }

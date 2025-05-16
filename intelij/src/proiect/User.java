@@ -1,3 +1,5 @@
+package proiect;
+
 public abstract class User {
     protected final int id;
     protected String username;

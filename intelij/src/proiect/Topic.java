@@ -1,3 +1,5 @@
+package proiect;
+
 public enum Topic {
     MATHEMATICS,
     SCIENCE,
@@ -11,5 +13,5 @@ public enum Topic {
     ENGINEERING,
     MEDICINE,
     BUSINESS,
-    MUSIC
+    MUSIC;
 }

@@ -2,33 +2,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudyGroup {
-    private String name;
-    private Admin createdBy;
-    private List<Student> groups = new ArrayList<>();
+    private final String name;
+    private final Admin createdBy;
+    private List<Student> students = new ArrayList<>();
     private List<StudySession> sessions  = new ArrayList<>();
     private List<StudyMaterial> materials = new ArrayList<>();
 
     public StudyGroup(String name, Admin createdBy) {
         this.name = name;
         this.createdBy = createdBy;
+        this.students = new ArrayList<>();
+        this.sessions = new ArrayList<>();
+        this.materials = new ArrayList<>();
     }
 
     public void addMember(Student student) {
-
+        students.add(student);
     }
 
-    public void addSession(StudySession s) {
-
+    public void addSession(StudySession session) {
+        sessions.add(session);
     }
 
-    public void addMaterial(StudyMaterial m) {
+    public void addMaterial(StudyMaterial material) {
+        materials.add(material);
+    }
 
+    public List<Student> getMembers() {
+        return students;
     }
 
     public List<StudySession>  getSessions()  {
         return sessions;
     }
+
     public List<StudyMaterial> getMaterials() {
         return materials;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Admin getCreatedBy() {
+        return createdBy;
     }
 }

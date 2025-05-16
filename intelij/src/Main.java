@@ -1,13 +1,90 @@
 import java.util.*;
 
 public class Main {
+    private static boolean exit = false;
+    private static final String EXIT_COMMAND = "exit";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<User> users = new ArrayList<>();
+        List<StudyGroup> studyGroups = new ArrayList<>();
 
-        Admin admin = new Admin(1, "admin", "admin@admin.com", "adminPassword");
-        users.add(admin);
+        Admin predefinedAdmin = new Admin(1, "admin", "admin@admin.com", "adminPassword");
+        users.add(predefinedAdmin);
 
+        while (!exit) {
+            User currentUser = loginRegister(scanner, users);
+
+            if (currentUser instanceof Student student) {
+                studentMenu(student);
+            } else if (currentUser instanceof Admin admin) {
+                adminMenu(admin, studyGroups);
+            }
+        }
+    }
+
+    public static void studentMenu(Student currentUser) {
+
+    }
+
+    public static void adminMenu(Admin admin, List<StudyGroup> studyGroups) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\nAdmin Menu");
+            System.out.println("1. Create Study Group");
+            System.out.println("2. Delete Study Group");
+            System.out.println("3. View Study Groups");
+            System.out.println("4. Logout");
+            System.out.println("5. Exit");
+
+            System.out.print("Select an option: ");
+            String choice = scanner.nextLine().trim();
+
+            switch (choice) {
+                case "1" -> {
+                    System.out.print("Enter group name: ");
+                    String groupName = scanner.nextLine().trim();
+                    StudyGroup newGroup = admin.createGroup(groupName, studyGroups);
+                    System.out.println("Group created: " + newGroup.getName());
+                }
+                case "2" -> {
+                    System.out.print("Enter group name to delete: ");
+                    String groupName = scanner.nextLine().trim();
+                    StudyGroup groupToDelete = null;
+                    for (StudyGroup group : studyGroups) {
+                        if (group.getName().equalsIgnoreCase(groupName)) {
+                            groupToDelete = group;
+                            break;
+                        }
+                    }
+                    if (groupToDelete != null) {
+                        admin.deleteGroup(groupToDelete, studyGroups);
+                        System.out.println("Group deleted: " + groupName);
+                    } else {
+                        System.out.println("Group not found.");
+                    }
+                }
+                case "3" -> {
+                    System.out.println("Study Groups:");
+                    for (StudyGroup group : studyGroups) {
+                        System.out.println("- " + group.getName());
+                    }
+                }
+                case "4" -> {
+                    System.out.println("Logging out...");
+                    return;
+                }
+                case EXIT_COMMAND -> {
+                    System.out.println("Exiting...");
+                    exit = true;
+                    return;
+                }
+                default -> System.out.println("Invalid option. Please select again.");
+            }
+        }
+    }
+
+    public static User loginRegister(Scanner scanner, List<User> users) {
         boolean loggedIn = false;
         User currentUser = null;
 
@@ -57,10 +134,6 @@ public class Main {
             }
         }
 
-        System.out.println("\n--- Logged in User ---");
-        System.out.println("ID:    " + currentUser.getId());
-        System.out.println("Name:  " + currentUser.getUsername());
-        System.out.println("Email: " + currentUser.getEmail());
-        System.out.println("Role:  " + (currentUser instanceof Admin ? "Admin" : "Student"));
+        return currentUser;
     }
 }

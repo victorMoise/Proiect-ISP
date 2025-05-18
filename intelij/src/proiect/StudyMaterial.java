@@ -20,4 +20,8 @@ public class StudyMaterial {
     public String getTitle() {
         return title;
     }
+
+    public String getLink() {
+        return link;
+    }
 }

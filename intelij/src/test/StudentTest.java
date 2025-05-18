@@ -1,9 +1,8 @@
 package test;
 
+import org.junit.jupiter.api.Assertions;
 import proiect.Student;
 import proiect.StudyGroup;
-
-import static org.junit.Assert.*;
 
 class StudentTest {
     @org.junit.jupiter.api.Test
@@ -14,10 +13,10 @@ class StudentTest {
 
         student1.joinStudyGroup(group);
         group.addMember(student1);
-        assertTrue(student1.getGroups().contains(group));
-        assertTrue(group.getMembers().contains(student1));
+        Assertions.assertTrue(student1.getGroups().contains(group));
+        Assertions.assertTrue(group.getMembers().contains(student1));
 
-        assertFalse(student2.getGroups().contains(group));
+        Assertions.assertFalse(student2.getGroups().contains(group));
     }
 
     @org.junit.jupiter.api.Test
@@ -29,8 +28,8 @@ class StudentTest {
         student.joinStudyGroup(group1);
         student.joinStudyGroup(group2);
 
-        assertEquals(2, student.getGroups().size());
-        assertTrue(student.getGroups().contains(group1));
-        assertTrue(student.getGroups().contains(group2));
+        Assertions.assertEquals(2, student.getGroups().size());
+        Assertions.assertTrue(student.getGroups().contains(group1));
+        Assertions.assertTrue(student.getGroups().contains(group2));
     }
 }

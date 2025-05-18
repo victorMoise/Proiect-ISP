@@ -6,9 +6,9 @@ import java.util.List;
 public class StudyGroup {
     private final String name;
     private final Admin createdBy;
-    private List<Student> students = new ArrayList<>();
-    private List<StudySession> sessions  = new ArrayList<>();
-    private List<StudyMaterial> materials = new ArrayList<>();
+    private final List<Student> students;
+    private final List<StudySession> sessions;
+    private final List<StudyMaterial> materials;
 
     public StudyGroup(String name, Admin createdBy) {
         this.name = name;

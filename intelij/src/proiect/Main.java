@@ -32,11 +32,12 @@ public class Main {
             System.out.println("1. View Study Groups");
             System.out.println("2. Join Study Group");
             System.out.println("3. Leave Study Group");
-            System.out.println("4. View Study Sessions");
-            System.out.println("5. Upload Study Material");
-            System.out.println("6. View Study Materials");
-            System.out.println("7. Logout");
-            System.out.println("8. Exit");
+            System.out.println("4. Create Study Session");
+            System.out.println("5. View Study Sessions");
+            System.out.println("6. Upload Study Material");
+            System.out.println("7. View Study Materials");
+            System.out.println("8. Logout");
+            System.out.println("9. Exit");
 
             System.out.print("Select an option: ");
             String choice = scanner.nextLine().trim();
@@ -100,7 +101,57 @@ public class Main {
                         }
                     }
                 }
-                case "4" -> {
+                case "4" -> { // <-- Implementare pentru creare sesiune
+                    if (currentUser.getGroups().isEmpty()) {
+                        System.out.println("You are not part of any study groups.");
+                    } else {
+                        for (StudyGroup group : currentUser.getGroups()) {
+                            System.out.println("- " + group.getName());
+                        }
+                        System.out.print("Enter the name of the group to create a session for: ");
+                        String groupName = scanner.nextLine().trim();
+                        StudyGroup targetGroup = null;
+                        for (StudyGroup group : currentUser.getGroups()) {
+                            if (group.getName().equalsIgnoreCase(groupName)) {
+                                targetGroup = group;
+                                break;
+                            }
+                        }
+                        if (targetGroup != null) {
+                            System.out.println("Available topics:");
+                            for (Topic topic : Topic.values()) {
+                                System.out.println("- " + topic);
+                            }
+                            System.out.print("Enter the topic: ");
+                            String topicInput = scanner.nextLine().trim();
+                            Topic topic;
+                            try {
+                                topic = Topic.valueOf(topicInput.toUpperCase());
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Invalid topic.");
+                                break;
+                            }
+
+                            System.out.print("Enter the date (yyyy-MM-dd): ");
+                            String dateInput = scanner.nextLine().trim();
+                            System.out.print("Enter the location: ");
+                            String location = scanner.nextLine().trim();
+
+                            try {
+                                Date date = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(dateInput);
+                                StudySession session = new StudySession(topic, date, location, targetGroup);
+                                targetGroup.addSession(session);
+                                System.out.println("Study session created successfully.");
+                            } catch (Exception e) {
+                                System.out.println("Invalid date format. Use yyyy-MM-dd.");
+                            }
+                        } else {
+                            System.out.println("Group not found.");
+                        }
+                    }
+                }
+
+                case "5" -> {
                     System.out.println("Study Sessions:");
                     for (StudyGroup group : currentUser.getGroups()) {
                         System.out.println("Group: " + group.getName());
@@ -113,7 +164,7 @@ public class Main {
                         }
                     }
                 }
-                case "5" -> {
+                case "6" -> {
                     System.out.println("Your Study Groups:");
                     if (currentUser.getGroups().isEmpty()) {
                         System.out.println("You are not part of any study groups.");
@@ -146,7 +197,7 @@ public class Main {
                         }
                     }
                 }
-                case "6" -> {
+                case "7" -> {
                     System.out.println("Your Study Groups:");
                     if (currentUser.getGroups().isEmpty()) {
                         System.out.println("You are not part of any study groups.");
@@ -173,11 +224,11 @@ public class Main {
                         }
                     }
                 }
-                case "7" -> {
+                case "8" -> {
                     System.out.println("Logging out...");
                     return;
                 }
-                case "8" -> {
+                case "9" -> {
                     System.out.println("Exiting...");
                     System.exit(0);
                 }

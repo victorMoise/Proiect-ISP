@@ -34,8 +34,9 @@ public class Main {
             System.out.println("3. Leave Study Group");
             System.out.println("4. View Study Sessions");
             System.out.println("5. Upload Study Material");
-            System.out.println("6. Logout");
-            System.out.println("7. Exit");
+            System.out.println("6. View Study Materials");
+            System.out.println("7. Logout");
+            System.out.println("8. Exit");
 
             System.out.print("Select an option: ");
             String choice = scanner.nextLine().trim();
@@ -146,10 +147,37 @@ public class Main {
                     }
                 }
                 case "6" -> {
+                    System.out.println("Your Study Groups:");
+                    if (currentUser.getGroups().isEmpty()) {
+                        System.out.println("You are not part of any study groups.");
+                    } else {
+                        for (StudyGroup group : currentUser.getGroups()) {
+                            System.out.println("- " + group.getName());
+                        }
+                        System.out.print("Enter the name of the group to view materials: ");
+                        String groupName = scanner.nextLine().trim();
+                        StudyGroup targetGroup = null;
+                        for (StudyGroup group : currentUser.getGroups()) {
+                            if (group.getName().equalsIgnoreCase(groupName)) {
+                                targetGroup = group;
+                                break;
+                            }
+                        }
+                        if (targetGroup != null) {
+                            System.out.println("Materials in " + groupName + ":");
+                            for (StudyMaterial material : targetGroup.getMaterials()) {
+                                System.out.println("- " + material.getTitle() + " (" + material.getType() + ")");
+                            }
+                        } else {
+                            System.out.println("Group not found.");
+                        }
+                    }
+                }
+                case "7" -> {
                     System.out.println("Logging out...");
                     return;
                 }
-                case "7" -> {
+                case "8" -> {
                     System.out.println("Exiting...");
                     System.exit(0);
                 }
